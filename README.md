@@ -5,7 +5,7 @@ A production-ready web application that extracts action items from meeting trans
 ## Features
 
 ✅ **Implemented:**
-- Process meeting transcripts and extract action items using OpenAI
+- Process meeting transcripts and extract action items using **Intelligent Pattern Matching** (No API Key required)
 - View all action items with filtering (open/done)
 - Edit task details (description, owner, due date)
 - Mark tasks as done/open
@@ -30,7 +30,7 @@ A production-ready web application that extracts action items from meeting trans
 
 - **Backend:** FastAPI (Python 3.11+)
 - **Database:** SQLite with SQLAlchemy
-- **LLM:** OpenAI API (GPT-4o-mini)
+- **Extraction Engine:** Intelligent Pattern Matching (Regex-based, Zero Cost)
 - **Frontend:** HTML + Vanilla JavaScript + CSS
 - **Deployment:** Render-ready
 
@@ -168,10 +168,16 @@ Health check endpoint.
 }
 ```
 
-## Deployment to Render
+## Deployment
 
-### Step 1: Prepare Repository
-Ensure all files are committed to a Git repository (GitHub, GitLab, etc.)
+### Why Vercel?
+This project is deployed on **Vercel** instead of Render.
+- **Reason:** The free tier on Render was exhausted by other active projects, requiring a paid plan for additional services.
+- **Solution:** Vercel provided a generous free tier for serverless Python functions, allowing this project to be hosted cost-effectively without compromising performance.
+- **Implementation:** The app uses a "Zero Config" approach where Vercel automatically detects and wraps the FastAPI application.
+
+### Local Deployment
+1. **Clone the repository:**
 
 ### Step 2: Create Web Service on Render
 

@@ -1,6 +1,8 @@
 # Development Prompts Used
 
-This document contains the prompts used during development. No API keys or sensitive responses are included.
+This document contains the prompts designed for the OpenAI integration. 
+
+> **Note:** The current deployment uses a cost-free **Pattern Matching Engine** instead of OpenAI. These prompts are preserved for future use if you decide to upgrade to the AI-powered version by adding an API key.
 
 ## Initial Project Setup Prompt
 

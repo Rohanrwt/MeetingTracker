@@ -2,18 +2,18 @@
 
 ## What AI Was Used For
 
-### 1. **Action Item Extraction (Production Feature)**
-- **Model:** OpenAI GPT-4o-mini
-- **Purpose:** Extract structured action items from unstructured meeting transcripts
+### 1. **Action Item Extraction**
+- **Engine:** Intelligent Pattern Matching (Regex-based)
+- **Purpose:** Extract structured action items from unstructured meeting transcripts without API costs.
 - **Implementation:** `app/llm.py`
 - **Input:** Raw meeting transcript text
 - **Output:** JSON array of tasks with owner and due_date fields
 
-**Why GPT-4o-mini:**
-- Cost-effective for production use (~$0.15 per 1M input tokens)
-- Sufficient accuracy for task extraction
-- Fast response times (<2 seconds typically)
-- Supports JSON mode for structured output
+**Why Pattern Matching (Current Implementation):**
+- **Zero Cost:** No API credits required.
+- **Privacy First:** Data never leaves your server.
+- **Instant Response:** No network latency.
+- **Reliable:** Deterministic output for known sentence structures.
 
 ### 2. **Development Assistance**
 - Used Claude (Anthropic) for:

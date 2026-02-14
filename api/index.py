@@ -9,13 +9,7 @@ os.environ["VERCEL"] = "1"
 
 from mangum import Mangum
 from app.main import app
-from app.database import init_db
-
-# Initialize database
-try:
-    init_db()
-except Exception as e:
-    print(f"DB init warning: {e}")
+# Database initialization is handled in app.main startup_event
 
 # Mangum handler for Vercel
 handler = Mangum(app, lifespan="off")

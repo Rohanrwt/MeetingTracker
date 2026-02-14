@@ -277,6 +277,27 @@ async def status_check(db: Session = Depends(get_db)):
     )
 
 
+@app.get("/debug")
+async def debug_info():
+    """Debug endpoint to inspect environment."""
+    import sys
+    
+    env_vars = {}
+    for key, value in os.environ.items():
+        if "KEY" in key or "SECRET" in key or "PASSWORD" in key:
+            env_vars[key] = "***"
+        else:
+            env_vars[key] = value
+            
+    return {
+        "cwd": os.getcwd(),
+        "sys_path": sys.path,
+        "env_vars": env_vars,
+        "files_in_cwd": os.listdir("."),
+        "files_in_app": os.listdir("app") if os.path.exists("app") else "app not found"
+    }
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

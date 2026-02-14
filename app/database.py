@@ -5,7 +5,10 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 # Use DATABASE_URL from environment variable (Vercel) or fallback to SQLite (local)
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./meeting_tracker.db")
+# Use DATABASE_URL from environment variable (Vercel) or fallback to SQLite (local)
+# If running in Vercel but DATABASE_URL is missing, use /tmp (writable)
+fallback_db = "sqlite:////tmp/meeting_tracker.db" if os.environ.get("VERCEL") else "sqlite:///./meeting_tracker.db"
+DATABASE_URL = os.getenv("DATABASE_URL", fallback_db)
 
 # Create engine
 if "sqlite" in DATABASE_URL:

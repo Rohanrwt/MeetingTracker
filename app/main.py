@@ -235,7 +235,7 @@ async def get_transcripts(limit: int = 5, db: Session = Depends(get_db)):
         Transcript.created_at.desc()
     ).limit(limit).all()
     
-    return [TranscriptResponse.from_orm(t) for t in transcripts]
+    return [TranscriptResponse.model_validate(t) for t in transcripts]
 
 
 @app.get("/status", response_model=StatusResponse)

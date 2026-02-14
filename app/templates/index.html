@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Action Items Tracker</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Meeting Action Items Tracker</h1>
+            <p class="subtitle">Extract and manage action items from meeting transcripts</p>
+        </header>
+
+        <!-- Process Transcript Section -->
+        <section class="process-section">
+            <h2>Process Meeting Transcript</h2>
+            <form id="transcriptForm">
+                <textarea 
+                    id="transcriptText" 
+                    placeholder="Paste your meeting transcript here...&#10;&#10;Example:&#10;Team discussed Q1 goals. John will prepare the sales report by Friday. Sarah mentioned she'll reach out to the design team this week. We need to schedule a follow-up meeting next Monday."
+                    rows="8"
+                    required
+                ></textarea>
+                <button type="submit" id="processBtn">
+                    <span class="btn-text">Extract Action Items</span>
+                    <span class="btn-loader" style="display: none;">Processing...</span>
+                </button>
+            </form>
+            <div id="processingResult" class="result-message" style="display: none;"></div>
+        </section>
+
+        <!-- Tasks Section -->
+        <section class="tasks-section">
+            <div class="section-header">
+                <h2>Action Items</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="open">Open</button>
+                    <button class="filter-btn" data-filter="done">Done</button>
+                </div>
+            </div>
+            <div id="tasksList" class="tasks-list">
+                <p class="empty-state">No action items yet. Process a transcript to get started.</p>
+            </div>
+        </section>
+
+        <!-- Transcript History Section -->
+        <section class="history-section">
+            <h2>Recent Transcripts</h2>
+            <div id="transcriptHistory" class="history-list">
+                <p class="empty-state">No transcripts processed yet.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

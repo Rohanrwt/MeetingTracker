@@ -4,14 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 
-# Hardcoded Neon database URL for Vercel deployment
-NEON_DATABASE_URL = "postgresql://neondb_owner:npg_wYW4hjMHqF9R@ep-late-credit-aiqtgo22-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require"
-
-# Use Neon for Vercel, SQLite for local development
-if os.getenv("VERCEL") or os.getenv("VERCEL_ENV"):
-    DATABASE_URL = NEON_DATABASE_URL
-else:
-    DATABASE_URL = "sqlite:///./meeting_tracker.db"
+# Use DATABASE_URL from environment variable (Vercel) or fallback to SQLite (local)
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./meeting_tracker.db")
 
 # Create engine
 if "sqlite" in DATABASE_URL:

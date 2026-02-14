@@ -35,7 +35,11 @@ app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), na
 @app.on_event("startup")
 def startup_event():
     """Initialize database tables on startup."""
-    init_db()
+    try:
+        init_db()
+    except Exception as e:
+        print(f"Database initialization failed: {e}")
+        # Continue anyway, let requests fail if DB is down
 
 
 # HTML Routes
@@ -98,7 +102,7 @@ async def process_transcript(
             db.refresh(task)
 
         # Convert to response schema
-        task_responses = [TaskResponse.from_orm(task) for task in tasks]
+        task_responses = [TaskResponse.model_validate(task) for task in tasks]
 
         return ProcessTranscriptResponse(
             transcript_id=transcript.id,
@@ -133,7 +137,7 @@ async def get_tasks(
         query = query.filter(Task.status == status)
     
     tasks = query.order_by(Task.created_at.desc()).all()
-    return [TaskResponse.from_orm(task) for task in tasks]
+    return [TaskResponse.model_validate(task) for task in tasks]
 
 
 @app.get("/api/tasks/{task_id}", response_model=TaskResponse)
@@ -154,7 +158,7 @@ async def get_task(task_id: int, db: Session = Depends(get_db)):
     task = db.query(Task).filter(Task.id == task_id).first()
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
-    return TaskResponse.from_orm(task)
+    return TaskResponse.model_validate(task)
 
 
 @app.patch("/api/tasks/{task_id}", response_model=TaskResponse)
@@ -188,7 +192,7 @@ async def update_task(
 
     db.commit()
     db.refresh(task)
-    return TaskResponse.from_orm(task)
+    return TaskResponse.model_validate(task)
 
 
 @app.delete("/api/tasks/{task_id}")

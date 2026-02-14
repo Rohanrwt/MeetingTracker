@@ -1,11 +1,12 @@
-import json
+import sys
+import os
 
-def handler(event, context):
-    """
-    Minimal zero-dependency handler to verify Vercel runtime.
-    """
-    return {
-        "statusCode": 200,
-        "headers": {"Content-Type": "text/html"},
-        "body": "<h1>DEBUG MODE WORKS</h1><p>Vercel environment is healthy. The issue is in the app dependencies or code.</p>"
-    }
+# Add the project root to the python path so imports work
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import the FastAPI app
+# Vercel will automatically detect the 'app' variable and serve it
+from app.main import app
+
+# Force Vercel env var just in case
+os.environ["VERCEL"] = "1"
